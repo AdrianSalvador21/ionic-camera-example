@@ -2,6 +2,6 @@
 <resources>
     <string name="app_name">cameraExample</string>
     <string name="title_activity_main">cameraExample</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="package_name">com.adriansalvador.pushnotificationapp</string>
+    <string name="custom_url_scheme">com.adriansalvador.pushnotificationapp</string>
 </resources>

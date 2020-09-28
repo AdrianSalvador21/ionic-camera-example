@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
 import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
+
+// import {Plugins} from '@capacitor/core';
+// const {PushNotifications} = Plugins;
 
 declare var window: any;
 
@@ -12,7 +15,7 @@ declare var window: any;
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit{
 
   public imgD = '';
   public imgDD = '';
@@ -24,6 +27,18 @@ export class HomePage {
   public exampleImagePath = '';
 
   constructor(private camera: Camera, private file: File, public base64: Base64, private sanitizer: DomSanitizer, private barcodeScanner: BarcodeScanner) {}
+
+  ngOnInit(): void {
+    // this.getAllNotifications();
+  }
+
+  barcode() {
+    this.barcodeScanner.scan().then(barcodeData => {
+      console.log('Barcode data', JSON.stringify(barcodeData));
+    }).catch(err => {
+      console.log('Error', err);
+    });
+  }
 
   camara() {
     const options: CameraOptions = {
@@ -98,11 +113,13 @@ export class HomePage {
     });
   }
 
-  barcode() {
-    this.barcodeScanner.scan().then(barcodeData => {
-      console.log('Barcode data', JSON.stringify(barcodeData));
-    }).catch(err => {
-      console.log('Error', err);
-    });
+  resetBadgeCount() {
+    // PushNotifications.removeAllListeners();
   }
+
+  /* getAllNotifications() {
+    PushNotifications.getDeliveredNotifications().then((data) => {
+      console.log(data);
+    });
+  } */
 }

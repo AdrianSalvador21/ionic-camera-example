@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "33895298639",
+    "firebase_url": "https://fir-fotos-78dbd.firebaseio.com",
+    "project_id": "fir-fotos-78dbd",
+    "storage_bucket": "fir-fotos-78dbd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:33895298639:android:3eaf8f989925acad059c3a",
+        "android_client_info": {
+          "package_name": "com.adriansalvador.pushnotificationapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "33895298639-ogg19dfru350j9bqqsi63r26h4g6k07d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZZxh8jvyOVtPCaLtkI7bdaGRi108s710"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "33895298639-ogg19dfru350j9bqqsi63r26h4g6k07d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
