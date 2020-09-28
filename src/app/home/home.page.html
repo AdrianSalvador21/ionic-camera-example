@@ -16,12 +16,15 @@
 
     <p>content</p>
     <p>{{imgD}}</p>
-    <p>{{imgDD}}</p>
+    <p>{{error}}</p>
+    <p>{{erroText}}</p>
+    <p>{{base64StringData}}</p>
 
     <ion-row>
       <ion-col size="3" *ngFor="let image of tempImages">
         <ion-card>
-          <img alt="img" [src]="image | imageSanitizer">
+          <img style="height:120px; width:110px" [src]="'data:image/jpeg;base64,' + image | imageSanitizer" alt="imag" />
+          <img style="height:120px; width:110px" [src]="exampleImagePath | imageSanitizer" alt="img2" />
         </ion-card>
       </ion-col>
     </ion-row>

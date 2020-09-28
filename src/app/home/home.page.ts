@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
+import { DomSanitizer } from '@angular/platform-browser';
 
 declare var window: any;
 
@@ -14,17 +16,23 @@ export class HomePage {
   public imgD = '';
   public imgDD = '';
   public tempImages = [];
+  public base64StringData;
+  public error = false;
+  public erroText = '';
 
-  constructor(private camera: Camera, private file: File) {}
+  public exampleImagePath = '';
+
+  constructor(private camera: Camera, private file: File, public base64: Base64, private sanitizer: DomSanitizer) {}
 
   camara() {
     const options: CameraOptions = {
-      quality: 60,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      quality: 90,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      correctOrientation: true,
-      sourceType: this.camera.PictureSourceType.CAMERA
+      sourceType: this.camera.PictureSourceType.CAMERA,
+      targetWidth: 1000,
+      targetHeight: 1000
     };
 
     this.procesarImagen( options );
@@ -33,10 +41,9 @@ export class HomePage {
   libreria() {
     const options: CameraOptions = {
       quality: 60,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
-      correctOrientation: true,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
     };
 
@@ -48,31 +55,43 @@ export class HomePage {
     this.camera.getPicture(options).then( ( imageData ) => {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64 (DATA_URL):
-      const img = window.Ionic.WebView.convertFileSrc( imageData );
-      console.log(img);
-      console.log(imageData);
+      // const img = window.Ionic.WebView.convertFileSrc( imageData );
 
-      console.log();
-
-      let saveImg = `data:image/jpeg;base64,${imageData}`;
-
-      this.imgD = JSON.stringify(img);
+      // this.imgD = JSON.stringify(img);
       this.imgDD = JSON.stringify(imageData);
+      // this.imgDD = this.imgDD.substring(1);
 
-      this.tempImages.push( img );
+      console.log(imageData);
+      console.log('procesar imagen');
 
-      const tempFilename = img.substr(img.lastIndexOf('/') + 1);
+      // const img = window.Ionic.WebView.convertFileSrc( imageData );
 
-      const tempBaseFilesystemPath = img.substr(0, img.lastIndexOf('/') + 1);
+      this.erroText = this.imgDD.substring(0, 50);
+      /* this.base64.encodeFile(this.imgDD).then((base64File: string) => {
+        console.log(base64File);
+        this.base64StringData = base64File;
+      }, (err) => {
+        console.log(err);
+        this.erroText = JSON.stringify(err);
+        this.error = true;
+      }); */
 
-      const newBaseFilesystemPath = this.file.dataDirectory;
+      const imagePath = imageData;
+      console.log(this.imgDD);
+      this.tempImages.push(imagePath);
+      this.exampleImagePath = 'data:image/jpeg;base64,' + imagePath;
 
-      this.file.copyFile(tempBaseFilesystemPath, tempFilename,
-        newBaseFilesystemPath, tempFilename);
+      // const tempFilename = img.substr(img.lastIndexOf('/') + 1);
 
+      // const tempBaseFilesystemPath = img.substr(0, img.lastIndexOf('/') + 1);
+
+      // const newBaseFilesystemPath = this.file.dataDirectory;
+
+      // this.file.copyFile(tempBaseFilesystemPath, tempFilename, newBaseFilesystemPath, tempFilename);
     }, (err) => {
       // Handle error
       console.log(err);
+      this.error = true;
     });
   }
 

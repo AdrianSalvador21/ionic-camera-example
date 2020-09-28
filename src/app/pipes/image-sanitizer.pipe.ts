@@ -9,6 +9,8 @@ export class ImageSanitizerPipe implements PipeTransform {
   constructor( private domSanitizer: DomSanitizer ) {}
 
   transform( img: any ): any {
+    console.log(img);
+    console.log(this.domSanitizer.bypassSecurityTrustUrl( img ));
     return  this.domSanitizer.bypassSecurityTrustUrl( img ) ;
   }
 
