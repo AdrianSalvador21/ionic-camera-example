@@ -21,10 +21,10 @@
     <p>{{base64StringData}}</p>
 
     <ion-row>
-      <ion-col size="3" *ngFor="let image of tempImages">
+      <ion-col size="4" *ngFor="let image of tempImages">
         <ion-card>
           <img style="height:120px; width:110px" [src]="'data:image/jpeg;base64,' + image | imageSanitizer" alt="imag" />
-          <img style="height:120px; width:110px" [src]="exampleImagePath | imageSanitizer" alt="img2" />
+          <img class="preview-img" [src]="exampleImagePath | imageSanitizer" alt="img2" />
         </ion-card>
       </ion-col>
     </ion-row>

@@ -31,6 +31,7 @@ export class HomePage {
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.CAMERA,
+      correctOrientation: true,
       targetWidth: 1000,
       targetHeight: 1000
     };
@@ -44,6 +45,7 @@ export class HomePage {
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY
     };
 
