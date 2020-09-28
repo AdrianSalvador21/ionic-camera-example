@@ -3,6 +3,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { Base64 } from '@ionic-native/base64/ngx';
 import { DomSanitizer } from '@angular/platform-browser';
+import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 
 declare var window: any;
 
@@ -22,7 +23,7 @@ export class HomePage {
 
   public exampleImagePath = '';
 
-  constructor(private camera: Camera, private file: File, public base64: Base64, private sanitizer: DomSanitizer) {}
+  constructor(private camera: Camera, private file: File, public base64: Base64, private sanitizer: DomSanitizer, private barcodeScanner: BarcodeScanner) {}
 
   camara() {
     const options: CameraOptions = {
@@ -97,4 +98,11 @@ export class HomePage {
     });
   }
 
+  barcode() {
+    this.barcodeScanner.scan().then(barcodeData => {
+      console.log('Barcode data', JSON.stringify(barcodeData));
+    }).catch(err => {
+      console.log('Error', err);
+    });
+  }
 }
