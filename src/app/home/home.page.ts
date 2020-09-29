@@ -8,6 +8,11 @@ import {BarcodeScanner} from '@ionic-native/barcode-scanner/ngx';
 // import {Plugins} from '@capacitor/core';
 // const {PushNotifications} = Plugins;
 
+import { Plugins, LocalNotificationEnabledResult, LocalNotificationActionPerformed, LocalNotification, Device } from '@capacitor/core';
+import {AlertController} from '@ionic/angular';
+import {Local} from 'protractor/built/driverProviders';
+const { LocalNotifications } = Plugins;
+
 declare var window: any;
 
 @Component({
@@ -26,10 +31,14 @@ export class HomePage implements OnInit{
 
   public exampleImagePath = '';
 
-  constructor(private camera: Camera, private file: File, public base64: Base64, private sanitizer: DomSanitizer, private barcodeScanner: BarcodeScanner) {}
+  constructor(private camera: Camera,
+              private file: File,
+              public alertCtrl: AlertController,
+              public base64: Base64, private sanitizer: DomSanitizer, private barcodeScanner: BarcodeScanner) {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     // this.getAllNotifications();
+    await LocalNotifications.requestPermission();
   }
 
   barcode() {
@@ -122,4 +131,32 @@ export class HomePage implements OnInit{
       console.log(data);
     });
   } */
+
+  async scheduleBasic() {
+    await LocalNotifications.schedule({
+      notifications: [
+        {
+          title: 'Reminder',
+          body: 'Body example',
+          id: 1,
+          extra: {
+            data: 'Pass data to your handler'
+          },
+          iconColor: '#0000FF'
+        }
+      ]
+    });
+  }
+
+  async scheduleAdvanced() {
+
+  }
+
+  async presentalert(header, message) {
+    const alert = await this.alertCtrl.create({
+      header,
+      message,
+      buttons: ['OK']
+    });
+  }
 }
